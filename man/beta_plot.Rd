@@ -1,5 +1,5 @@
-\name{hello}
-\alias{hello}
+\name{beta_plot}
+\alias{beta_plot}
 \title{beta_plot}
 \usage{
 hello()
