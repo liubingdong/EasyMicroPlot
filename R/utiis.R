@@ -89,10 +89,10 @@ pca_boxplot=function(data,design,group_level=c('default'),method=c('Tukey'),dist
           axis.text.x=element_blank(),
           legend.position = "none")
 
-  p2 <- ggplot(plotdata,aes(Group,PC2),outlier.colour = NA) +
-    geom_boxplot(aes(fill = Group)) +
+  p2 <- ggplot(plotdata,aes(Group,PC2)) +
+    geom_boxplot(aes(fill = Group),outlier.colour = NA) +
     geom_text(data = test,aes(x = Group,y = yd2,label = PC2),
-              size = 7,color = "black",fontface = "bold") +geom_point(position = "jitter",color="black",alpha=1)+
+              size = 7,color = "black",fontface = "bold")+geom_point(position = "jitter",color="black",alpha=1)+
     scale_fill_manual(values=palette) +
     theme_bw()+
     theme(axis.ticks.length = unit(0.4,"lines"),
@@ -104,7 +104,25 @@ pca_boxplot=function(data,design,group_level=c('default'),method=c('Tukey'),dist
                                    vjust = 1,hjust = 1,face = "bold"),
           axis.text.y=element_blank(),
           legend.position = "none")
-
+  
+  p2_r <- ggplot(plotdata,aes(Group,PC2)) +
+    geom_boxplot(aes(fill = Group),outlier.colour = NA) +
+    geom_text(data = test,aes(x = Group,y = yd2,label = PC2),
+              size = 7,color = "black",fontface = "bold")+coord_flip() +geom_point(position = "jitter",color="black",alpha=1)+
+    scale_fill_manual(values=palette) +
+    theme_bw()+
+    theme(axis.ticks.length = unit(0.4,"lines"),
+          axis.ticks = element_line(color='black'),
+          axis.line = element_line(colour = "black"),
+          axis.title.x=element_blank(),
+          axis.title.y=element_blank(),
+          axis.text.x=element_text(colour='black',size=20,angle = 45,
+                                   vjust = 1,hjust = 1,face = "bold"),
+          axis.text.y=element_blank(),
+          legend.position = "none")
+  
+  
+  
   p3 <- ggplot(plotdata,aes(Group,PC3),outlier.colour = NA) +
     geom_boxplot(aes(fill = Group)) +
     geom_text(data = test,aes(x = Group,y = yd3,label = PC3),
@@ -222,7 +240,7 @@ pca_boxplot=function(data,design,group_level=c('default'),method=c('Tukey'),dist
   #图像拼接-使用patchwork包将4幅图拼在一起
   p12 <- p1 + p5 + p12 + p2 +
     plot_layout(heights = c(1,4),widths = c(4,1),ncol = 2,nrow = 2)
-  p23 <- p2 +coord_flip()+ p5 + p23 + p3 +
+  p23 <- p2_r + p5 + p23 + p3 +
     plot_layout(heights = c(1,4),widths = c(4,1),ncol = 2,nrow = 2)
   p13 <- p1 + p5 + p13 + p3 +
     plot_layout(heights = c(1,4),widths = c(4,1),ncol = 2,nrow = 2)
