@@ -222,7 +222,7 @@ pca_boxplot=function(data,design,group_level=c('default'),method=c('Tukey'),dist
   #图像拼接-使用patchwork包将4幅图拼在一起
   p12 <- p1 + p5 + p12 + p2 +
     plot_layout(heights = c(1,4),widths = c(4,1),ncol = 2,nrow = 2)
-  p23 <- p2 + p5 + p23 + p3 +
+  p23 <- p2 +coord_flip()+ p5 + p23 + p3 +
     plot_layout(heights = c(1,4),widths = c(4,1),ncol = 2,nrow = 2)
   p13 <- p1 + p5 + p13 + p3 +
     plot_layout(heights = c(1,4),widths = c(4,1),ncol = 2,nrow = 2)
