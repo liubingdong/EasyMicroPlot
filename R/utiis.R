@@ -248,6 +248,9 @@ pca_boxplot=function(data,design,group_level=c('default'),method=c('Tukey'),dist
   deposit$p12=p12
   deposit$p23=p23
   deposit$p13=p13
+  deposit$PC1_test=summary(tuk1)
+  deposit$PC2_test=summary(tuk2)
+  deposit$PC3_test=summary(tuk3)
   return(deposit)
 }
 
