@@ -6,6 +6,7 @@
 #' @import multcomp
 #' @import patchwork
 #' @import fs
+#' @import stringr
 
 options(dplyr.summarise.inform = FALSE)
 
