@@ -1,3 +1,13 @@
+#' @import ggplot2
+#' @import vegan
+#' @import ape
+#' @import grid
+#' @import dplyr
+#' @import multcomp
+#' @import patchwork
+#' @import fs
+
+options(dplyr.summarise.inform = FALSE)
 
 pca_boxplot=function(data,design,group_level=c('default'),method=c('Tukey'),distance=c('bray'),palette=c("#E64B35FF","#4DBBD5FF","#00A087FF","#3C5488FF","#F39B7FFF","#8491B4FF",
                        "#B2182B","#E69F00","#56B4E9","#009E73","#F0E442","#0072B2","#D55E00","#CC79A7","#CC6666")){
