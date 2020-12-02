@@ -257,7 +257,6 @@ pca_boxplot=function(data,design,group_level=c('default'),method=c('Tukey'),dist
 
 
 modify_data=function(data,design, min_relative,min_odd) {
-  library(dplyr)
   otu_origin=data
   mapping=design
   # 将第一列转为行名
