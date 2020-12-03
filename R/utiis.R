@@ -11,8 +11,8 @@
 options(dplyr.summarise.inform = FALSE)
 
 pca_boxplot=function(data,design,group_level=c('default'),method=c('Tukey'),distance=c('bray'),palette=c("#E64B35FF","#4DBBD5FF","#00A087FF","#3C5488FF","#F39B7FFF","#8491B4FF",
-                       "#B2182B","#E69F00","#56B4E9","#009E73","#F0E442","#0072B2","#D55E00","#CC79A7","#CC6666")){
-
+                                                                                                         "#B2182B","#E69F00","#56B4E9","#009E73","#F0E442","#0072B2","#D55E00","#CC79A7","#CC6666")){
+  
   data=data
   mapping=read.table(paste0(design),header = T)
   mapping$Group=as.factor(mapping$Group)
@@ -22,10 +22,10 @@ pca_boxplot=function(data,design,group_level=c('default'),method=c('Tukey'),dist
   if (group_level_check==T) {
     mapping$Group<-factor(mapping$Group,levels = group_level)
   }else{
-      if (group_level != 'default') {
-        warning('group level can not match, and pipe will follow the default level !')
-      }
+    if (group_level != 'default') {
+      warning('group level can not match, and pipe will follow the default level !')
     }
+  }
   groups <- data.frame(mapping$SampleID,mapping$Group)
   colnames(groups) <- c("V1","V2")
   length=length(unique(as.character(groups$V1)))
@@ -50,7 +50,7 @@ pca_boxplot=function(data,design,group_level=c('default'),method=c('Tukey'),dist
   pc2 <-round(pcoa$values$Relative_eig[2]*100,digits = 2)
   pc3 <-round(pcoa$values$Relative_eig[3]*100,digits = 2)
   #plotdata$Group <- factor(plotdata$Group,levels = name_group)
-
+  
   #PC1和PC2的显著性检验(PC1,PC2,PC3进行组间差异检验)
   yf <- plotdata
   yd1 <- yf %>% group_by(Group) %>% summarise(Max = max(PC1))
@@ -68,11 +68,11 @@ pca_boxplot=function(data,design,group_level=c('default'),method=c('Tukey'),dist
   fit3 <- aov(PC3~Group,data = plotdata)
   tuk3<-glht(fit3,linfct=mcp(Group=method))
   res3 <- cld(tuk3,alpah=0.05)
-
+  
   test <- data.frame(PC1 = res1$mcletters$Letters,PC2 = res2$mcletters$Letters,PC3 = res3$mcletters$Letters,
                      yd1 = yd1$Max,yd2 = yd2$Max,yd3 = yd3$Max,Group = yd1$Group)
   test$Group <- factor(test$Group,levels = name_group)
-
+  
   #相须图绘制
   p1 <- ggplot(plotdata,aes(Group,PC1)) +
     geom_boxplot(aes(fill = Group),outlier.colour = NA) +
@@ -89,7 +89,7 @@ pca_boxplot=function(data,design,group_level=c('default'),method=c('Tukey'),dist
           axis.text.y=element_text(colour='black',size=20,face = "bold"),
           axis.text.x=element_blank(),
           legend.position = "none")
-
+  
   p2 <- ggplot(plotdata,aes(Group,PC2)) +
     geom_boxplot(aes(fill = Group),outlier.colour = NA) +
     geom_text(data = test,aes(x = Group,y = yd2,label = PC2),
@@ -139,7 +139,7 @@ pca_boxplot=function(data,design,group_level=c('default'),method=c('Tukey'),dist
                                    vjust = 1,hjust = 1,face = "bold"),
           axis.text.y=element_blank(),
           legend.position = "none")
-
+  
   #PCoA结果图绘制
   p12<-ggplot(plotdata, aes(PC1, PC2)) +
     geom_point(aes(fill=Group),size=8,pch = 21)+
@@ -165,8 +165,8 @@ pca_boxplot=function(data,design,group_level=c('default'),method=c('Tukey'),dist
           legend.background = element_rect(colour = "black"),
           legend.key.height=unit(1,"cm")) +
     guides(fill = guide_legend(ncol = 1))
-
-
+  
+  
   p13<-ggplot(plotdata, aes(PC1, PC3)) +
     geom_point(aes(fill=Group),size=8,pch = 21)+
     scale_fill_manual(values=palette,name = "Group")+
@@ -191,7 +191,7 @@ pca_boxplot=function(data,design,group_level=c('default'),method=c('Tukey'),dist
           legend.background = element_rect(colour = "black"),
           legend.key.height=unit(1,"cm")) +
     guides(fill = guide_legend(ncol = 1))
-
+  
   p23<-ggplot(plotdata, aes(PC2, PC3)) +
     geom_point(aes(fill=Group),size=8,pch = 21)+
     scale_fill_manual(values=palette,name = "Group")+
@@ -216,13 +216,13 @@ pca_boxplot=function(data,design,group_level=c('default'),method=c('Tukey'),dist
           legend.background = element_rect(colour = "black"),
           legend.key.height=unit(1,"cm")) +
     guides(fill = guide_legend(ncol = 1))
-
-
-
-
+  
+  
+  
+  
   #PERMANOVA分析
   otu.adonis=adonis(data~V2,data = groups,distance = "bray")
-
+  
   p5 <- ggplot() +
     geom_text(aes(x = -0.5,y = 0.6,
                   label = paste("PERMANOVA:\ndf = ",
@@ -237,7 +237,7 @@ pca_boxplot=function(data,design,group_level=c('default'),method=c('Tukey'),dist
           axis.line = element_blank(),
           axis.ticks = element_blank(),
           axis.text = element_blank())
-
+  
   #图像拼接-使用patchwork包将4幅图拼在一起
   p12 <- p1 + p5 + p12 + p2 +
     plot_layout(heights = c(1,4),widths = c(4,1),ncol = 2,nrow = 2)
@@ -262,69 +262,69 @@ modify_data=function(data,design, min_relative,min_odd) {
   # 将第一列转为行名
   rownames(otu_origin)<-otu_origin[,1]
   otu_origin<-otu_origin[,-1]
-
+  
   # 过滤掉小于千分之一的数据
   otu_origin[otu_origin<min_relative]=0
-
+  
   #先矩阵化，再倒置
   otu_t=as.data.frame(t(as.matrix(otu_origin)))
-
+  
   # 修改第一列
   otu_t=data.frame( SampleID=rownames(otu_t),otu_t)
   rownames(otu_t)=c(1:nrow(otu_t))
-
+  
   #与mapping文件合并，获得数据切分依据
   otu_merge=full_join(otu_t,mapping,by="SampleID")
   otu_group_split=split(otu_merge,otu_merge$Group)
-
+  
   name_group=unique(mapping$Group)
-
+  
   # 创建ID空集
   data_for_filter=list()
-
+  
   for (j in 1:length(name_group)) {
     # 循环读取各组数据
     otu=otu_group_split[[j]]
     # 删除前面合并的不必要的数据
     otu=subset(otu,select = -c(barcode,primer,Group,Description))
-
+    
     # 更改数据名称为V，便于下游制图
     colnames(otu)=c("SampleID",paste("V", 1:c(ncol(otu)-1), sep = ""))
-
+    
     # 将第一列转换为rownames
     otu=data.frame(otu,row.names = 1)
-
+    
     # 利用mapping文件获得此次分组名称
     mapping=read.table("mapping.txt",header = T,sep = "\t")
-
+    
     id_group=mapping$SampleID%in%rownames(otu)
-
+    
     group_name=mapping$Group[id_group]
-
+    
     name=as.character(group_name[1])
-
+    
     # 统计为0的菌种比例
     no_zero_odd=apply(otu, 2, function(m){sum(m!=0)/nrow(otu)})
-
+    
     # 过滤掉低占比的菌种，可根据情况设置20%，30%
     otu=otu[,no_zero_odd>=min_odd]
     data_for_filter[[j]]=colnames(otu)
   }
-
+  
   ### 根据每个单独过滤组的变量取并集，得到所需的序列
   idx=Reduce(union,data_for_filter)
-
+  
   # 获得根据过滤条件的适合随机森林的数据RF
   RF_raw=subset(otu_merge,select = -c(SampleID,barcode,primer,Description))
   ## 获得变量info
   var_names=colnames(RF_raw[,-ncol(RF_raw)])
   ## 重命名
   colnames(RF_raw)<-paste("V",1:ncol(RF_raw),sep="")
-
+  
   RF_filter=RF_raw[,idx]
   # 得到所需数据
   RF=data.frame(Group=otu_merge$Group,RF_filter)
-
+  
   # 变量存储
   deposit=list()
   deposit$mapping_file=mapping
@@ -337,12 +337,12 @@ modify_data=function(data,design, min_relative,min_odd) {
 
 
 data_filter=function(dir,min_relative,min_ratio,design,adjust=F,output=F,pattern=''){
-  file_name<-list.files(path =dir ,pattern = pattern)
-  file_name=file_name[which(file_name!=design)]
+  file_name<-list.files(path ='.' ,pattern = 'L2')
+  file_name=file_name[which(file_name!='mapping.txt')]
   file_num=length(file_name)
   sep_num=c()
   tax_total=c('phylum','class','order','family','genus','species')
-  mapping=read.table(paste0(design),header = T)
+  mapping=read.table(paste0('mapping.txt'),header = T)
   deposit=list()
   for (i in c(1:file_num)){
     file_data=read.table(file_name[i],sep='\t',header=T,check.names = F,row.names= 1)
@@ -357,10 +357,11 @@ data_filter=function(dir,min_relative,min_ratio,design,adjust=F,output=F,pattern
       tax_level=tax_total[sep_num[i]]
       data=read.table(file_name[i], sep="\t", header=T,check.names = F)
       SampleID=colnames(data)[-1]
+      tax_names=data.frame(ID=paste0("V", 1:length(data$`OTU ID`)),tax=data$`OTU ID`)
       filter_result=modify_data(data=data,design = mapping,min_relative = min_relative,min_odd =min_ratio )
       sub_data=filter_result$filtered_data
       sub_data=data.frame(SampleID=SampleID,sub_data)
-
+      
       # check empty data
       sub_data_check=subset(sub_data,select=-c(SampleID,Group))
       if (ncol(sub_data_check) != 0) {
@@ -394,6 +395,7 @@ data_filter=function(dir,min_relative,min_ratio,design,adjust=F,output=F,pattern
           file_move(paste0(tax_level,"_",min_ratio*100,"%_info.csv"),tax_level)
         }
         deposit$filter_data[[paste0(tax_level)]]=sub_data
+        deposit$filter_data[[paste0(tax_level,'_ID')]]=tax_names
       }else{
         print(paste0(file_name[i],' has been filtered into empty data, please reset the filter parameter !'))
         deposit$filter_data[[paste0(tax_level)]]='empty data'
@@ -402,6 +404,7 @@ data_filter=function(dir,min_relative,min_ratio,design,adjust=F,output=F,pattern
   }
   return(deposit)
 }
+
 
 beta_plot=function(dir,group_level=c('default'),min_relative = 0,min_ratio = 0,design ,adjust = F,pattern = '',output = F,
                    method='Tukey',distance = 'bray',palette=c("#E64B35FF","#4DBBD5FF","#00A087FF","#3C5488FF","#F39B7FFF","#8491B4FF",
@@ -417,7 +420,6 @@ beta_plot=function(dir,group_level=c('default'),min_relative = 0,min_ratio = 0,d
   }
   return(deposit)
 }
-
 
 
 
