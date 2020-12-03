@@ -337,12 +337,12 @@ modify_data=function(data,design, min_relative,min_odd) {
 
 
 data_filter=function(dir,min_relative,min_ratio,design,adjust=F,output=F,pattern=''){
-  file_name<-list.files(path ='.' ,pattern = 'L2')
-  file_name=file_name[which(file_name!='mapping.txt')]
+  file_name<-list.files(path ='.' ,pattern = pattern)
+  file_name=file_name[which(file_name!=design)]
   file_num=length(file_name)
   sep_num=c()
   tax_total=c('phylum','class','order','family','genus','species')
-  mapping=read.table(paste0('mapping.txt'),header = T)
+  mapping=read.table(paste0(design),header = T)
   deposit=list()
   for (i in c(1:file_num)){
     file_data=read.table(file_name[i],sep='\t',header=T,check.names = F,row.names= 1)
