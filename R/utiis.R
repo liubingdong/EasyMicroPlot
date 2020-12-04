@@ -314,9 +314,6 @@ modify_data=function(data,design, min_relative,min_odd) {
   ### 根据每个单独过滤组的变量取并集，得到所需的序列
   idx=Reduce(union,data_for_filter)
   
-  ## 获得变量info
-  var_names=colnames(RF_raw[,-ncol(RF_raw)])
-  
   RF_filter=otu_merge[,idx]
   # 得到所需数据
   RF=data.frame(SampleID=otu_merge$SampleID,Group=otu_merge$Group,RF_filter)
@@ -326,7 +323,6 @@ modify_data=function(data,design, min_relative,min_odd) {
   deposit$mapping_file=mapping
   deposit$otu_group_split=otu_group_split
   deposit$union_id=idx
-  deposit$var_names=var_names
   deposit$filtered_data=RF
   return(deposit)
 }
