@@ -289,14 +289,12 @@ modify_data=function(data,design, min_relative,min_odd) {
     otu=subset(otu,select = -c(barcode,primer,Group,Description))
     
     # 更改数据名称为V，便于下游制图
-    colnames(otu)=c("SampleID",paste("V", 1:c(ncol(otu)-1), sep = ""))
+    #colnames(otu)=c("SampleID",paste("V", 1:c(ncol(otu)-1), sep = ""))
     
     # 将第一列转换为rownames
     otu=data.frame(otu,row.names = 1)
     
     # 利用mapping文件获得此次分组名称
-    mapping=read.table("mapping.txt",header = T,sep = "\t")
-    
     id_group=mapping$SampleID%in%rownames(otu)
     
     group_name=mapping$Group[id_group]
@@ -337,12 +335,12 @@ modify_data=function(data,design, min_relative,min_odd) {
 
 
 data_filter=function(dir,min_relative,min_ratio,design,adjust=F,output=F,pattern=''){
-  file_name<-list.files(path ='.' ,pattern = pattern)
+  file_name<-list.files(path ='.' ,pattern = 'L2')
   file_name=file_name[which(file_name!=design)]
   file_num=length(file_name)
   sep_num=c()
   tax_total=c('phylum','class','order','family','genus','species')
-  mapping=read.table(paste0(design),header = T)
+  mapping=read.table(paste0(design),header = T,check.names = F,sep = "\t")
   deposit=list()
   for (i in c(1:file_num)){
     file_data=read.table(file_name[i],sep='\t',header=T,check.names = F,row.names= 1)
@@ -358,6 +356,7 @@ data_filter=function(dir,min_relative,min_ratio,design,adjust=F,output=F,pattern
       data=read.table(file_name[i], sep="\t", header=T,check.names = F)
       SampleID=colnames(data)[-1]
       tax_names=data.frame(ID=paste0("V", 1:length(data$`OTU ID`)),tax=data$`OTU ID`)
+      data$`OTU ID`=paste0("V", 1:nrow(data))
       filter_result=modify_data(data=data,design = mapping,min_relative = min_relative,min_odd =min_ratio )
       sub_data=filter_result$filtered_data
       sub_data=data.frame(SampleID=SampleID,sub_data)
