@@ -348,7 +348,6 @@ data_filter=function(dir,min_relative,min_ratio,design,adjust=F,output=F,pattern
     for (i in c(1:file_num)){
       tax_level=tax_total[sep_num[i]]
       data=read.table(file_name[i], sep="\t", header=T,check.names = F)
-      SampleID=colnames(data)[-1]
       tax_names=data.frame(ID=paste0("V", 1:length(data$`OTU ID`)),tax=data$`OTU ID`)
       data$`OTU ID`=paste0("V", 1:nrow(data))
       
@@ -358,11 +357,10 @@ data_filter=function(dir,min_relative,min_ratio,design,adjust=F,output=F,pattern
           data2=cbind(data2,data[paste0(k)])
       }
       colnames(data2)[1]=c('OTU ID')
-      SampleID=colnames(data2)[-1]
       
       filter_result=modify_data(data=data2,design = mapping,min_relative = min_relative,min_odd =min_ratio )
       sub_data=filter_result$filtered_data
-      sub_data=data.frame(SampleID=SampleID,sub_data)
+ 
       
       # check empty data
       sub_data_check=subset(sub_data,select=-c(SampleID,Group))
