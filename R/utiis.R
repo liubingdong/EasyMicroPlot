@@ -293,7 +293,8 @@ modify_data=function(data,design, min_relative,min_odd) {
     #colnames(otu)=c("SampleID",paste("V", 1:c(ncol(otu)-1), sep = ""))
     
     # 将第一列转换为rownames
-    otu=data.frame(otu,row.names = 1)
+    rownames(otu)<-otu[,1]
+    otu<-otu[,-1]
     
     # 利用mapping文件获得此次分组名称
     id_group=mapping$SampleID%in%rownames(otu)
@@ -313,12 +314,10 @@ modify_data=function(data,design, min_relative,min_odd) {
   ### 根据每个单独过滤组的变量取并集，得到所需的序列
   idx=Reduce(union,data_for_filter)
   
-  # 获得根据过滤条件的适合随机森林的数据RF
-  RF_raw=subset(otu_merge,select = -c(SampleID,barcode,primer,Description))
   ## 获得变量info
   var_names=colnames(RF_raw[,-ncol(RF_raw)])
   
-  RF_filter=RF_raw[,idx]
+  RF_filter=otu_merge[,idx]
   # 得到所需数据
   RF=data.frame(SampleID=otu_merge$SampleID,Group=otu_merge$Group,RF_filter)
   
