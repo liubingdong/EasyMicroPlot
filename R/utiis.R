@@ -274,7 +274,8 @@ modify_data=function(data,design, min_relative,min_odd) {
   rownames(otu_t)=c(1:nrow(otu_t))
   
   #与mapping文件合并，获得数据切分依据
-  otu_merge=full_join(otu_t,mapping,by="SampleID")
+  #注意这里的位置，以mapping为主表进行合并，纠正样本排序
+  otu_merge=full_join(mapping,otu_t,by="SampleID")
   otu_group_split=split(otu_merge,otu_merge$Group)
   
   name_group=unique(mapping$Group)
