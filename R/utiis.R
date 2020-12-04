@@ -348,15 +348,15 @@ data_filter=function(dir,min_relative,min_ratio,design,adjust=F,output=F,pattern
     for (i in c(1:file_num)){
       tax_level=tax_total[sep_num[i]]
       data=read.table(file_name[i], sep="\t", header=T,check.names = F)
-      tax_names=data.frame(ID=paste0("V", 1:length(data$`OTU ID`)),tax=data$`OTU ID`)
-      data$`OTU ID`=paste0("V", 1:nrow(data))
+      tax_names=data.frame(ID=paste0("V", 1:length(data$`ID`)),tax=data$`ID`)
+      data$`ID`=paste0("V", 1:nrow(data))
       
       # 根据mapping文件确认sample的存留与排序
-      data2=data$`OTU ID`
+      data2=data$`ID`
       for (k in mapping$SampleID) {
           data2=cbind(data2,data[paste0(k)])
       }
-      colnames(data2)[1]=c('OTU ID')
+      colnames(data2)[1]=c('ID')
       
       filter_result=modify_data(data=data2,design = mapping,min_relative = min_relative,min_odd =min_ratio )
       sub_data=filter_result$filtered_data
@@ -419,8 +419,3 @@ beta_plot=function(dir,group_level=c('default'),min_relative = 0,min_ratio = 0,d
   }
   return(deposit)
 }
-
-
-
-
-
