@@ -317,12 +317,10 @@ modify_data=function(data,design, min_relative,min_odd) {
   RF_raw=subset(otu_merge,select = -c(SampleID,barcode,primer,Description))
   ## 获得变量info
   var_names=colnames(RF_raw[,-ncol(RF_raw)])
-  ## 重命名
-  colnames(RF_raw)<-paste("V",1:ncol(RF_raw),sep="")
   
   RF_filter=RF_raw[,idx]
   # 得到所需数据
-  RF=data.frame(Group=otu_merge$Group,RF_filter)
+  RF=data.frame(SampleID=otu_merge$SampleID,Group=otu_merge$Group,RF_filter)
   
   # 变量存储
   deposit=list()
@@ -358,7 +356,16 @@ data_filter=function(dir,min_relative,min_ratio,design,adjust=F,output=F,pattern
       SampleID=colnames(data)[-1]
       tax_names=data.frame(ID=paste0("V", 1:length(data$`OTU ID`)),tax=data$`OTU ID`)
       data$`OTU ID`=paste0("V", 1:nrow(data))
-      filter_result=modify_data(data=data,design = mapping,min_relative = min_relative,min_odd =min_ratio )
+      
+      # 根据mapping文件确认sample的存留与排序
+      data2=data$`OTU ID`
+      for (k in mapping$SampleID) {
+          data2=cbind(data2,data[paste0(k)])
+      }
+      colnames(data2)[1]=c('OTU ID')
+      SampleID=colnames(data2)[-1]
+      
+      filter_result=modify_data(data=data2,design = mapping,min_relative = min_relative,min_odd =min_ratio )
       sub_data=filter_result$filtered_data
       sub_data=data.frame(SampleID=SampleID,sub_data)
       
@@ -366,7 +373,6 @@ data_filter=function(dir,min_relative,min_ratio,design,adjust=F,output=F,pattern
       sub_data_check=subset(sub_data,select=-c(SampleID,Group))
       if (ncol(sub_data_check) != 0) {
         id_na<-apply(sub_data_check,1,max)==0
-        
         empty_data_name=paste0(tax_level,'_empty_data')
         empty_data=data.frame()
         try(empty_data<-sub_data[id_na,],silent=T)
