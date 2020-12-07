@@ -117,10 +117,10 @@ pca_boxplot=function(data,design,seed=123,group_level=c('default'),method=c('Tuk
           axis.line = element_line(colour = "black"),
           axis.title.x=element_blank(),
           axis.title.y=element_blank(),
-          axis.text.x=element_text(colour='black',size=20,angle = 45,
-                                   vjust = 1,hjust = 1,face = "bold"),
-          axis.text.y=element_blank(),
+          axis.text.y=element_text(colour='black',size=20,face = "bold"),
+          axis.text.x=element_blank(),
           legend.position = "none")
+
   
   
   
