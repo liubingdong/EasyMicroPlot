@@ -10,7 +10,7 @@
 
 options(dplyr.summarise.inform = FALSE)
 
-pca_boxplot=function(data,design,seed=123,group_level=c('default'),method=c('Tukey'),distance=c('bray'),palette=c("#E64B35FF","#4DBBD5FF","#00A087FF","#3C5488FF","#F39B7FFF","#8491B4FF",
+pca_boxplot=function(data,design,seed=123,group_level=c('default'),method=c('Tukey'),width=15,height=15,distance=c('bray'),palette=c("#E64B35FF","#4DBBD5FF","#00A087FF","#3C5488FF","#F39B7FFF","#8491B4FF",
                                                                                                          "#B2182B","#E69F00","#56B4E9","#009E73","#F0E442","#0072B2","#D55E00","#CC79A7","#CC6666")){
   
   data=data
@@ -75,11 +75,10 @@ pca_boxplot=function(data,design,seed=123,group_level=c('default'),method=c('Tuk
   
   #相须图绘制
   p1 <- ggplot(plotdata,aes(Group,PC1)) +
-    geom_boxplot(aes(fill = Group),outlier.colour = NA) +
+    geom_boxplot(aes(fill = Group),outlier.colour = NA) +scale_fill_manual(values=palette)+
     geom_text(data = test,aes(x = Group,y = yd1,label = PC1),
               size = 7,color = "black",fontface = "bold") +
-    coord_flip() +geom_point(position = "jitter",color="black",alpha=1)+
-    scale_fill_manual(values=palette) +
+    coord_flip() +geom_point_interactive(aes(tooltip = paste0(sample,' : ',round(PC1,2))),position = "jitter")+
     theme_bw()+
     theme(axis.ticks.length = unit(0.4,"lines"),
           axis.ticks = element_line(color='black'),
@@ -91,10 +90,9 @@ pca_boxplot=function(data,design,seed=123,group_level=c('default'),method=c('Tuk
           legend.position = "none")
   
   p2 <- ggplot(plotdata,aes(Group,PC2)) +
-    geom_boxplot(aes(fill = Group),outlier.colour = NA) +
+    geom_boxplot(aes(fill = Group),outlier.colour = NA) +scale_fill_manual(values=palette)+
     geom_text(data = test,aes(x = Group,y = yd2,label = PC2),
-              size = 7,color = "black",fontface = "bold")+geom_point(position = "jitter",color="black",alpha=1)+
-    scale_fill_manual(values=palette) +
+              size = 7,color = "black",fontface = "bold")+geom_point_interactive(aes(tooltip = paste0(sample,' : ',round(PC2,2))),position = "jitter")+
     theme_bw()+
     theme(axis.ticks.length = unit(0.4,"lines"),
           axis.ticks = element_line(color='black'),
@@ -107,10 +105,9 @@ pca_boxplot=function(data,design,seed=123,group_level=c('default'),method=c('Tuk
           legend.position = "none")
   
   p2_r <- ggplot(plotdata,aes(Group,PC2)) +
-    geom_boxplot(aes(fill = Group),outlier.colour = NA) +
+    geom_boxplot(aes(fill = Group),outlier.colour = NA) +scale_fill_manual(values=palette)+
     geom_text(data = test,aes(x = Group,y = yd2,label = PC2),
-              size = 7,color = "black",fontface = "bold")+coord_flip() +geom_point(position = "jitter",color="black",alpha=1)+
-    scale_fill_manual(values=palette) +
+              size = 7,color = "black",fontface = "bold")+coord_flip() +geom_point_interactive(aes(tooltip = paste0(sample,' : ',round(PC2,2))),position = "jitter")+
     theme_bw()+
     theme(axis.ticks.length = unit(0.4,"lines"),
           axis.ticks = element_line(color='black'),
@@ -120,14 +117,13 @@ pca_boxplot=function(data,design,seed=123,group_level=c('default'),method=c('Tuk
           axis.text.y=element_text(colour='black',size=20,face = "bold"),
           axis.text.x=element_blank(),
           legend.position = "none")
-
   
   
   
   p3 <- ggplot(plotdata,aes(Group,PC3),outlier.colour = NA) +
     geom_boxplot(aes(fill = Group)) +
     geom_text(data = test,aes(x = Group,y = yd3,label = PC3),
-              size = 7,color = "black",fontface = "bold") +geom_point(position = "jitter",color="black",alpha=1)+
+              size = 7,color = "black",fontface = "bold") +geom_point_interactive(aes(tooltip = paste0(sample,' : ',round(PC3,2))),position = "jitter")+
     scale_fill_manual(values=palette) +
     theme_bw()+
     theme(axis.ticks.length = unit(0.4,"lines"),
@@ -142,7 +138,7 @@ pca_boxplot=function(data,design,seed=123,group_level=c('default'),method=c('Tuk
   
   #PCoA结果图绘制
   p12<-ggplot(plotdata, aes(PC1, PC2)) +
-    geom_point(aes(fill=Group),size=8,pch = 21)+
+    geom_point_interactive(aes(fill=Group,tooltip = paste0(sample,'\n','x: ',round(PC1,2),'\n','y: ',round(PC2,2))),size=8,pch = 21)+
     scale_fill_manual(values=palette,name = "Group")+
     xlab(paste("PC1 ( ",pc1,"%"," )",sep="")) +
     ylab(paste("PC2 ( ",pc2,"%"," )",sep=""))+
@@ -168,7 +164,7 @@ pca_boxplot=function(data,design,seed=123,group_level=c('default'),method=c('Tuk
   
   
   p13<-ggplot(plotdata, aes(PC1, PC3)) +
-    geom_point(aes(fill=Group),size=8,pch = 21)+
+    geom_point_interactive(aes(fill=Group,tooltip = paste0(sample,'\n','x: ',round(PC1,2),'\n','y: ',round(PC3,2))),size=8,pch = 21)+
     scale_fill_manual(values=palette,name = "Group")+
     xlab(paste("PC1 ( ",pc1,"%"," )",sep="")) +
     ylab(paste("PC3 ( ",pc3,"%"," )",sep=""))+
@@ -193,7 +189,7 @@ pca_boxplot=function(data,design,seed=123,group_level=c('default'),method=c('Tuk
     guides(fill = guide_legend(ncol = 1))
   
   p23<-ggplot(plotdata, aes(PC2, PC3)) +
-    geom_point(aes(fill=Group),size=8,pch = 21)+
+    geom_point_interactive(aes(fill=Group,tooltip = paste0(sample,'\n','x: ',round(PC2,2),'\n','y: ',round(PC3,2))),size=8,pch = 21)+
     scale_fill_manual(values=palette,name = "Group")+
     xlab(paste("PC2 ( ",pc2,"%"," )",sep="")) +
     ylab(paste("PC3 ( ",pc3,"%"," )",sep=""))+
@@ -223,7 +219,6 @@ pca_boxplot=function(data,design,seed=123,group_level=c('default'),method=c('Tuk
   #PERMANOVA分析
   set.seed(seed)
   otu.adonis=adonis(data~V2,data = groups,distance = distance)
-  
   p5 <- ggplot() +
     geom_text(aes(x = -0.5,y = 0.6,
                   label = paste("PERMANOVA:\ndf = ",
@@ -246,6 +241,12 @@ pca_boxplot=function(data,design,seed=123,group_level=c('default'),method=c('Tuk
     plot_layout(heights = c(1,4),widths = c(4,1),ncol = 2,nrow = 2)
   p13 <- p1 + p5 + p13 + p3 +
     plot_layout(heights = c(1,4),widths = c(4,1),ncol = 2,nrow = 2)
+  #生成交互式html文件
+  p12_html=girafe(code = print(p12),width_svg = width,height_svg = height)
+  p13_html=girafe(code = print(p13),width_svg = width,height_svg = height)
+  p23_html=girafe(code = print(p23),width_svg = width,height_svg = height)
+  
+  #存储数据
   deposit=list()
   deposit$p12=p12
   deposit$p23=p23
@@ -253,8 +254,12 @@ pca_boxplot=function(data,design,seed=123,group_level=c('default'),method=c('Tuk
   deposit$PC1_test=summary(tuk1)
   deposit$PC2_test=summary(tuk2)
   deposit$PC3_test=summary(tuk3)
+  deposit$p12_html=p12_html
+  deposit$p13_html=p13_html
+  deposit$p23_html=p23_html
   return(deposit)
 }
+
 
 
 modify_data=function(data,design, min_relative,min_odd) {
