@@ -195,7 +195,7 @@ pca_boxplot=function(data,design,seed=123,group_level=c('default'),method=c('Tuk
   p23<-ggplot(plotdata, aes(PC2, PC3)) +
     geom_point(aes(fill=Group),size=8,pch = 21)+
     scale_fill_manual(values=palette,name = "Group")+
-    xlab(paste("PC2 ( ",pc1,"%"," )",sep="")) +
+    xlab(paste("PC2 ( ",pc2,"%"," )",sep="")) +
     ylab(paste("PC3 ( ",pc3,"%"," )",sep=""))+
     xlim(ggplot_build(p2)$layout$panel_scales_y[[1]]$range$range) +
     ylim(ggplot_build(p3)$layout$panel_scales_y[[1]]$range$range) +
