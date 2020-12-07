@@ -10,7 +10,7 @@
 
 options(dplyr.summarise.inform = FALSE)
 
-pca_boxplot=function(data,design,group_level=c('default'),method=c('Tukey'),distance=c('bray'),palette=c("#E64B35FF","#4DBBD5FF","#00A087FF","#3C5488FF","#F39B7FFF","#8491B4FF",
+pca_boxplot=function(data,design,seed=123,group_level=c('default'),method=c('Tukey'),distance=c('bray'),palette=c("#E64B35FF","#4DBBD5FF","#00A087FF","#3C5488FF","#F39B7FFF","#8491B4FF",
                                                                                                          "#B2182B","#E69F00","#56B4E9","#009E73","#F0E442","#0072B2","#D55E00","#CC79A7","#CC6666")){
   
   data=data
@@ -221,7 +221,8 @@ pca_boxplot=function(data,design,group_level=c('default'),method=c('Tukey'),dist
   
   
   #PERMANOVA分析
-  otu.adonis=adonis(data~V2,data = groups,distance = "bray")
+  set.seed(seed)
+  otu.adonis=adonis(data~V2,data = groups,distance = distance)
   
   p5 <- ggplot() +
     geom_text(aes(x = -0.5,y = 0.6,
