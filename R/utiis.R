@@ -406,7 +406,7 @@ data_filter=function(dir,min_relative,min_ratio,design,adjust=F,output=F,pattern
 }
 
 
-beta_plot=function(dir,group_level=c('default'),min_relative = 0,min_ratio = 0,design ,adjust = F,pattern = '',output = F,
+beta_plot=function(dir,seed=123,group_level=c('default'),min_relative = 0,min_ratio = 0,design ,adjust = F,pattern = '',output = F,
                    method='Tukey',distance = 'bray',palette=c("#E64B35FF","#4DBBD5FF","#00A087FF","#3C5488FF","#F39B7FFF","#8491B4FF",
                                                               "#B2182B","#E69F00","#56B4E9","#009E73","#F0E442","#0072B2","#D55E00","#CC79A7","#CC6666") ){
   deposit=list()
@@ -415,7 +415,7 @@ beta_plot=function(dir,group_level=c('default'),min_relative = 0,min_ratio = 0,d
     data=data.frame()
     try(data<-subset(deposit$result$filter_data[[i]],select=-c(SampleID,Group)),silent=T)
     if (ncol(data) != 0) {
-      deposit$plot[[i]]<-pca_boxplot(data =data ,design = design,group_level=group_level)
+      deposit$plot[[i]]<-pca_boxplot(data =data,seed=seed,design = design,group_level=group_level)
     }
   }
   return(deposit)
