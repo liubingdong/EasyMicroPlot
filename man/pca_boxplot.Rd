@@ -27,11 +27,11 @@ rownames(data)<-data[,1]
 data<-data[,-1]
 data<-subset(data,select=-c(Group))
 ## plot all
-beta=pca_boxplot(data =data ,design = 'mapping.txt',seed=12,method=Tukey,distance=bray)
+beta=pca_boxplot(data =data ,design = 'mapping.txt',seed=12,method='Tukey',distance='bray')
 
 ## gereate html
 beta=pca_boxplot(data =data ,design = 'mapping.txt',seed=12,
-                    method=Tukey,distance=bray,html_out=T)
+                    method='Tukey',distance='bray')
 
 ## generate pdf
 ## better set seed as the fomer to make pdf as same as html output
