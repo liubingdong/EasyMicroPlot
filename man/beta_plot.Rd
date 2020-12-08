@@ -5,7 +5,7 @@
 beta_plot(dir = dir,min_relative = min_relative,min_ratio = min_ratio,
                       design = Mapping File,adjust = F,pattern = pattern,
                       group_level=group_level,method=method,distance=distance,
-                      html_out=html_out,output=output)
+                      html_out=html_out,output=output,seed=seed,width=width,height=height)
 }
 \description{
 Filtering data and making beta diversity plot.
@@ -22,6 +22,7 @@ Filtering data and making beta diversity plot.
   \item{output}{Output filter data at different levels. [Default:False]}
   \item{html_out}{Output interactive html in three axis ay different levels. [Default:False]}
   \item{seed}{Set the random seed to generate reproducible result. [Default:123]}
+  \item{width,height}{Set the width and height of interactive html. [Default:15]}
   \item{method}{Set method in multiple comparison: Tukey(Default),Dunnett,Sequen,AVE,Changepoint,Williams,Marcus,McDermott,UmbrellaWilliams,GrandMean.}
   \item{distance}{bray(Default),manhattan, euclidean, canberra, clark, kulczynski, jaccard, gower, altGower, morisita, horn, mountford, raup, binomial, chao, cao or mahalanobis.}
 }
