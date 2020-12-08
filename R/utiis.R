@@ -75,6 +75,7 @@ pca_boxplot=function(data,design,seed=123,group_level=c('default'),method=c('Tuk
                      yd1 = yd1$Max,yd2 = yd2$Max,yd3 = yd3$Max,Group = yd1$Group)
   test$Group <- factor(test$Group,levels = name_group)
   
+  set.seed(seed)
   #相须图绘制
   p1 <- ggplot(plotdata,aes(Group,PC1)) +
     geom_boxplot(aes(fill = Group),outlier.colour = NA) +scale_fill_manual(values=palette)+
