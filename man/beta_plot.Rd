@@ -16,7 +16,7 @@ Filtering data and making beta diversity plot.
   \item{min_relative}{Set the min relative abundance for filtering.}
   \item{min_ratio}{Set the min ratio presence for taxonomy.}
   \item{design}{Mapping File.}
-  \item{adjust}{Set addtional dummy tax in empty data when filtering. [Default:False]}
+  \item{adjust}{Set addtional dummy tax in empty data when filtering. [Default:True]}
   \item{pattern}{Set key string character for relative abundance files.}
   \item{palette}{Colour palette.}
   \item{output}{Output filter data at different levels. [Default:False]}
