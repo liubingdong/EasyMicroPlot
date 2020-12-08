@@ -8,5 +8,5 @@ Description: A easy R script plot for Microbiome analysis
 License: GPL-2
 Encoding: UTF-8
 Depends: R (>= 3.5.1), ggplot2
-Imports: vegan (>= 2.5-6), ape (>= 5.3), grid (>= 3.5.1), dplyr (>= 1.0.2), multcomp (>= 1.4-14), patchwork (>= 1.0.1), fs (>= 1.5.0), stringr (>= 1.4.0)
+Imports: vegan (>= 2.5-6), ape (>= 5.3), grid (>= 3.5.1), dplyr (>= 1.0.2), multcomp (>= 1.4-14), patchwork (>= 1.0.1), fs (>= 1.5.0), stringr (>= 1.4.0), plotly (>= 4.9.2.1), ggiraph (>= 0.7.0)
 LazyData: true
