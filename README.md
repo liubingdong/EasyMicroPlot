@@ -15,11 +15,14 @@ EasyMicroPlot aims to be an **easy-to-use Microbiome  analysis pipeline** that a
 * ggiraph (>= 0.7.0)
 
 ## INSTALLATION
-
-	library(devtools)
-	# select a specific version:
-	install_github("liubingdong/EasyMicroPlot",subdir='Version_0.4.1',
-					upgrade = 'never')
+```
+if(! require("devtools")) install.packages("devtools")
+library(devtools)
+install_github("liubingdong/EasyMicroPlot",subdir='Version_0.4.1',
+				upgrade = 'never')
+```				
+					
+					
 ##Main FUNCTION
 * data_filter
 * pca_boxplot
