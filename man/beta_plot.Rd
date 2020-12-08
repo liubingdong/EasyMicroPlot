@@ -2,10 +2,11 @@
 \alias{beta_plot}
 \title{beta_plot}
 \usage{
-hello()
+beta_plot(dir = dir,min_relative = min_relative,min_ratio = min_ratio,
+                      design = Mapping File,adjust = F,pattern = pattern,group_level=group_level,method=method,distance=distance)
 }
 \description{
-Prints 'A easy R script plot for Microbiome analysis'.
+Filtering data and making beta diversity plot.
 }
 \arguments{
   \item{dir}{An directory contain microbial relative abundance at different levels.}
@@ -15,12 +16,15 @@ Prints 'A easy R script plot for Microbiome analysis'.
   \item{design}{Mapping File}
   \item{adjust}{Set addtional dummy tax in empty data when filtering [Default:False]}
   \item{pattern}{Set key string character for relative abundance files}
-  \item{palette}{Colour palette}
-  \item{method}{Set method in multiple comparison [Tukey(Default),Dunnett,Sequen,AVE,Changepoint,Williams,Marcus,McDermott,UmbrellaWilliams,GrandMean]}
+  \item{palette}{Colour palette}  
+  \item{output}{Output filter data at different levels [Default:False]}
+  \item{html_out}{Output interactive html in three axis ay different levels [Default:False]}
+  \item{seed}{Set the random seed to generate reproducible result [Default:123]}
+  \item{method}{Set method in multiple comparison: Tukey(Default),Dunnett,Sequen,AVE,Changepoint,Williams,Marcus,McDermott,UmbrellaWilliams,GrandMean}
   \item{distance}{bray(Default),manhattan, euclidean, canberra, clark, kulczynski, jaccard, gower, altGower, morisita, horn, mountford, raup, binomial, chao, cao or mahalanobis}
 }
 \examples{
 beta_result=beta_plot(group_level=c('Ctrl','CtrlD', 'HFD', 'HFDDH'),
                       dir = '.',min_relative = 0.001,min_ratio = 0.85,
-                      design = 'mapping.txt',adjust = F,pattern = 'L')
+                      design = 'mapping.txt',adjust = F,pattern = 'L',html_out = F,output=F,seed = 124)
 }
