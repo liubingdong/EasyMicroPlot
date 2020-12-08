@@ -3,7 +3,9 @@
 \title{beta_plot}
 \usage{
 beta_plot(dir = dir,min_relative = min_relative,min_ratio = min_ratio,
-                      design = Mapping File,adjust = F,pattern = pattern,group_level=group_level,method=method,distance=distance)
+                      design = Mapping File,adjust = F,pattern = pattern,
+                      group_level=group_level,method=method,distance=distance,
+                      html_out=html_out,output=output)
 }
 \description{
 Filtering data and making beta diversity plot.
