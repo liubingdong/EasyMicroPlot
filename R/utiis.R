@@ -122,11 +122,10 @@ pca_boxplot=function(data,design,seed=123,group_level=c('default'),method=c('Tuk
   
   
   
-  p3 <- ggplot(plotdata,aes(Group,PC3),outlier.colour = NA) +
+  p3 <- ggplot(plotdata,aes(Group,PC3),outlier.colour = NA) + scale_fill_manual(values=palette) +
     geom_boxplot(aes(fill = Group)) +
     geom_text(data = test,aes(x = Group,y = yd3,label = PC3),
               size = 7,color = "black",fontface = "bold") +geom_point_interactive(aes(tooltip = paste0(sample,' : ',round(PC3,2))),position = "jitter")+
-    scale_fill_manual(values=palette) +
     theme_bw()+
     theme(axis.ticks.length = unit(0.4,"lines"),
           axis.ticks = element_line(color='black'),
