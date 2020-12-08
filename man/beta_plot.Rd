@@ -18,7 +18,7 @@ Filtering data and making beta diversity plot.
   \item{design}{Mapping File.}
   \item{adjust}{Set addtional dummy tax in empty data when filtering. [Default:False]}
   \item{pattern}{Set key string character for relative abundance files.}
-  \item{palette}{Colour palette.}  
+  \item{palette}{Colour palette.}
   \item{output}{Output filter data at different levels. [Default:False]}
   \item{html_out}{Output interactive html in three axis ay different levels. [Default:False]}
   \item{seed}{Set the random seed to generate reproducible result. [Default:123]}
