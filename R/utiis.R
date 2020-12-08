@@ -263,7 +263,7 @@ pca_boxplot=function(data,design,seed=123,group_level=c('default'),method=c('Tuk
   deposit$html$p12_html=p12_html
   deposit$html$p13_html=p13_html
   deposit$html$p23_html=p23_html
-  deposit$pc_data$=plotdata
+  deposit$pc_data=plotdata
   return(deposit)
 }
 
