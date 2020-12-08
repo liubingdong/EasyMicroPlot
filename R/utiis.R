@@ -18,6 +18,8 @@ pca_boxplot=function(data,design,seed=123,group_level=c('default'),method=c('Tuk
   data=data
   mapping=read.table(paste0(design),header = T)
   mapping$Group=as.factor(mapping$Group)
+  real_sample=Reduce(intersect,list(mapping$SampleID,rownames(data)))
+  mapping=mapping[mapping$SampleID%in%real_sample,]
   # 检查输入的group 新顺序是否符合要求，来决定是否使用默认字符串顺序
   name_group=unique(mapping$Group)
   group_level_check=all(name_group%in%group_level)&all(group_level%in%name_group)
