@@ -254,15 +254,16 @@ pca_boxplot=function(data,design,seed=123,group_level=c('default'),method=c('Tuk
   
   #存储数据
   deposit=list()
-  deposit$p12=p12
-  deposit$p23=p23
-  deposit$p13=p13
-  deposit$PC1_test=summary(tuk1)
-  deposit$PC2_test=summary(tuk2)
-  deposit$PC3_test=summary(tuk3)
-  deposit$p12_html=p12_html
-  deposit$p13_html=p13_html
-  deposit$p23_html=p23_html
+  deposit$pic$p12=p12
+  deposit$pic$p23=p23
+  deposit$pic$p13=p13
+  deposit$test$PC1_test=summary(tuk1)
+  deposit$$test$PC2_test=summary(tuk2)
+  deposit$test$PC3_test=summary(tuk3)
+  deposit$html$p12_html=p12_html
+  deposit$html$p13_html=p13_html
+  deposit$html$p23_html=p23_html
+  deposit$pc_data$=plotdata
   return(deposit)
 }
 
@@ -429,9 +430,9 @@ beta_plot=function(dir,group_level=c('default'),seed=123,min_relative = 0,min_ra
       data<-data[,-1]
       deposit$plot[[i]]<-pca_boxplot(data =data ,design = design,group_level=group_level,seed=seed,method=method,distance=distance,palette=palette)
       if (html_out==T) {
-        htmlwidgets::saveWidget(deposit$plot[[i]]$p12_html, paste0(i,'_',min_relative,'_',min_ratio,'_',distance,'_p1-2.html'))
-        htmlwidgets::saveWidget(deposit$plot[[i]]$p13_html, paste0(i,'_',min_relative,'_',min_ratio,'_',distance,'_p1-3.html'))
-        htmlwidgets::saveWidget(deposit$plot[[i]]$p23_html, paste0(i,'_',min_relative,'_',min_ratio,'_',distance,'_p2-3.html'))
+        htmlwidgets::saveWidget(deposit$plot[[i]]$pic$p12_html, paste0(i,'_',min_relative,'_',min_ratio,'_',distance,'_p1-2.html'))
+        htmlwidgets::saveWidget(deposit$plot[[i]]$pic$p13_html, paste0(i,'_',min_relative,'_',min_ratio,'_',distance,'_p1-3.html'))
+        htmlwidgets::saveWidget(deposit$plot[[i]]$pic$p23_html, paste0(i,'_',min_relative,'_',min_ratio,'_',distance,'_p2-3.html'))
       }
     }
   }
