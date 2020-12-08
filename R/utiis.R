@@ -24,7 +24,7 @@ pca_boxplot=function(data,design,seed=123,group_level=c('default'),method=c('Tuk
   if (group_level_check==T) {
     mapping$Group<-factor(mapping$Group,levels = group_level)
   }else{
-    if (group_level != 'default') {
+    if (group_level[1] != 'default') {
       warning('group level can not match, and pipe will follow the default level !')
     }
   }
