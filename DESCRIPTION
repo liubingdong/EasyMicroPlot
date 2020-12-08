@@ -1,9 +1,9 @@
 Package: EasyMicroPlot
 Type: Package
 Title: EasyMicroPlot
-Version: 0.3.1
+Version: 0.3.2
 Author: Liu Bingdong
-Maintainer: The package maintainer <yourself@somewhere.net>
+Maintainer: 382983280@qq.com
 Description: A easy R script plot for Microbiome analysis
 License: GPL-2
 Encoding: UTF-8
