@@ -244,6 +244,7 @@ pca_boxplot=function(data,design,seed=123,group_level=c('default'),method=c('Tuk
   p13 <- p1 + p5 + p13 + p3 +
     plot_layout(heights = c(1,4),widths = c(4,1),ncol = 2,nrow = 2)
   #生成交互式html文件
+  #注意这一步生成的html随机过程已经被锁定了，需要设定种子，而ggplot2的pdf每次提取的时候都会产生随机，应在出图时候确定种子
   set.seed(seed)
   p12_html=girafe(code = print(p12),width_svg = width,height_svg = height)
   set.seed(seed)
