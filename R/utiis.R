@@ -244,8 +244,11 @@ pca_boxplot=function(data,design,seed=123,group_level=c('default'),method=c('Tuk
   p13 <- p1 + p5 + p13 + p3 +
     plot_layout(heights = c(1,4),widths = c(4,1),ncol = 2,nrow = 2)
   #生成交互式html文件
+  set.seed(seed)
   p12_html=girafe(code = print(p12),width_svg = width,height_svg = height)
+  set.seed(seed)
   p13_html=girafe(code = print(p13),width_svg = width,height_svg = height)
+  set.seed(seed)
   p23_html=girafe(code = print(p23),width_svg = width,height_svg = height)
   
   #存储数据
@@ -425,11 +428,8 @@ beta_plot=function(dir,group_level=c('default'),seed=123,min_relative = 0,min_ra
       data<-data[,-1]
       deposit$plot[[i]]<-pca_boxplot(data =data ,design = design,group_level=group_level,seed=seed,method=method,distance=distance,palette=palette)
       if (html_out==T) {
-        set.seed(seed)
         htmlwidgets::saveWidget(deposit$plot[[i]]$p12_html, paste0(i,'_',min_relative,'_',min_ratio,'_',distance,'_p1-2.html'))
-        set.seed(seed)
         htmlwidgets::saveWidget(deposit$plot[[i]]$p13_html, paste0(i,'_',min_relative,'_',min_ratio,'_',distance,'_p1-3.html'))
-        set.seed(seed)
         htmlwidgets::saveWidget(deposit$plot[[i]]$p23_html, paste0(i,'_',min_relative,'_',min_ratio,'_',distance,'_p2-3.html'))
       }
     }
