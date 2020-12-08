@@ -2,7 +2,7 @@
 
 EasyMicroPlot aims to be an **easy-to-use Microbiome  analysis pipeline** that accomplishes the core tasks of metagenomic analysis from start to finish: Data filter, Alpha diversity, Beta diversity, Co-occurence, Venn plot, Heat map, Key taxa screen,etc. Additionally, EasyMicroPlot could generated beautiful and qualified picture and tables for dissertation and paper. EasyMicroPlot is meant to be a fast and simple approach before you delve deeper into parameterization of your analysis. Each individual module of EasyMicroPlot is a standalone program, which means you can use only the modules you are interested in for your data.
 
-##  PACKAGS DEPENDENCIES 
+## PACKAGS DEPENDENCIES 
 * vegan (>= 2.5-6)
 * ape (>= 5.3) 
 * grid (>= 3.5.1)
@@ -15,20 +15,23 @@ EasyMicroPlot aims to be an **easy-to-use Microbiome  analysis pipeline** that a
 * ggiraph (>= 0.7.0)
 
 ## INSTALLATION
-```
-if(! require("devtools")) install.packages("devtools")
-library(devtools)
-install_github("liubingdong/EasyMicroPlot",subdir='Version_0.4.1',
-				upgrade = 'never')
-```				
-					
-					
-##Main FUNCTION
+
+	if(! require("devtools")) install.packages("devtools")
+	library(devtools)
+	install_github("liubingdong/EasyMicroPlot",subdir='Version_0.4.1',
+					upgrade = 'never')
+
+
+				
+## Main FUNCTION
+
 * data_filter
 * pca_boxplot
 * beta_plot
 
-##USAGE
+
+## USAGE
+
 **Easy to run (Recomened):**
 
 	beta_result=beta_plot(group_level=c('Ctrl','CtrlD', 'HFD', 'HFDDH'),
