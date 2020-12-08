@@ -423,7 +423,7 @@ beta_plot=function(dir,group_level=c('default'),seed=123,min_relative = 0,min_ra
     if (ncol(data) != 0) {
       rownames(data)<-data[,1]
       data<-data[,-1]
-      deposit$plot[[i]]<-pca_boxplot(data =data ,design = design,group_level=group_level,seed=seed,method=method,distance=distance,palette=palette,html_out = html_out)
+      deposit$plot[[i]]<-pca_boxplot(data =data ,design = design,group_level=group_level,seed=seed,method=method,distance=distance,palette=palette)
       if (html_out==T) {
         set.seed(seed)
         htmlwidgets::saveWidget(deposit$plot[[i]]$p12_html, paste0(i,'_',min_relative,'_',min_ratio,'_',distance,'_p1-2.html'))
