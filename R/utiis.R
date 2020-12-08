@@ -422,9 +422,7 @@ beta_plot=function(dir,group_level=c('default'),seed=123,min_relative = 0,min_ra
                                                               "#B2182B","#E69F00","#56B4E9","#009E73","#F0E442","#0072B2","#D55E00","#CC79A7","#CC6666") ){
   deposit=list()
   deposit$result=data_filter(dir = dir,min_relative = min_relative,min_ratio = min_ratio,design = design,adjust = adjust,pattern = pattern,output = output)
-  if (adjust==F)&(){
 
-  }
   for (i in names(deposit$result$filter_data)){
     data=data.frame()
     try(data<-subset(deposit$result$filter_data[[i]],select=-c(Group)),silent=T)
