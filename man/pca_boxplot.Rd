@@ -38,5 +38,4 @@ pdf('sp_1_2.pdf',height = 15,width = 15)
 beta_result$plot$species$p12
 dev.off()
 
-##
 }
