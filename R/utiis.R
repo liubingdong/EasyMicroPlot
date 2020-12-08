@@ -434,9 +434,9 @@ beta_plot=function(dir,group_level=c('default'),seed=123,min_relative = 0,min_ra
       if (adjust==F){
         id_0=apply(data,1,mean)
         samples_elimated=rownames(data)[id_0==0]
+        data=data[id_0!=0,]
         if (0%in%id_0){
           warning(paste0('In ',i,' level, ',samples_elimated,' was elimated, due to empty data!') )
-          data=data[id_0!=0,]
         }
       }
       deposit$plot[[i]]<-pca_boxplot(data =data ,design = design,group_level=group_level,seed=seed,method=method,distance=distance,palette=palette,width=width,height=height)
