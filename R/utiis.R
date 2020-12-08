@@ -75,7 +75,6 @@ pca_boxplot=function(data,design,seed=123,group_level=c('default'),method=c('Tuk
                      yd1 = yd1$Max,yd2 = yd2$Max,yd3 = yd3$Max,Group = yd1$Group)
   test$Group <- factor(test$Group,levels = name_group)
   
-  set.seed(seed)
   #相须图绘制
   p1 <- ggplot(plotdata,aes(Group,PC1)) +
     geom_boxplot(aes(fill = Group),outlier.colour = NA) +scale_fill_manual(values=palette)+
@@ -223,7 +222,8 @@ pca_boxplot=function(data,design,seed=123,group_level=c('default'),method=c('Tuk
   otu.adonis=adonis(data~V2,data = groups,distance = distance)
   p5 <- ggplot() +
     geom_text(aes(x = -0.5,y = 0.6,
-                  label = paste("PERMANOVA:\ndf = ",
+                  label = paste(distance,
+                                "\nPERMANOVA:\ndf = ",
                                 otu.adonis$aov.tab$Df[1],
                                 "\nR2 = ",round(otu.adonis$aov.tab$R2[1],4),
                                 "\np-value = ",otu.adonis$aov.tab$`Pr(>F)`[1],sep = "")),
@@ -412,7 +412,7 @@ data_filter=function(dir,min_relative,min_ratio,design,adjust=F,output=F,pattern
 }
 
 
-beta_plot=function(dir,group_level=c('default'),min_relative = 0,min_ratio = 0,design ,adjust = F,pattern = '',output = F,html_out = F,
+beta_plot=function(dir,group_level=c('default'),seed=123,min_relative = 0,min_ratio = 0,design ,adjust = F,pattern = '',output = F,html_out = F,
                    method='Tukey',distance = 'bray',palette=c("#E64B35FF","#4DBBD5FF","#00A087FF","#3C5488FF","#F39B7FFF","#8491B4FF",
                                                               "#B2182B","#E69F00","#56B4E9","#009E73","#F0E442","#0072B2","#D55E00","#CC79A7","#CC6666") ){
   deposit=list()
@@ -423,10 +423,13 @@ beta_plot=function(dir,group_level=c('default'),min_relative = 0,min_ratio = 0,d
     if (ncol(data) != 0) {
       rownames(data)<-data[,1]
       data<-data[,-1]
-      deposit$plot[[i]]<-pca_boxplot(data =data ,design = design,group_level=group_level)
+      deposit$plot[[i]]<-pca_boxplot(data =data ,design = design,group_level=group_level,seed=seed,method=method,distance=distance,palette=palette,html_out = html_out)
       if (html_out==T) {
+        set.seed(seed)
         htmlwidgets::saveWidget(deposit$plot[[i]]$p12_html, paste0(i,'_',min_relative,'_',min_ratio,'_',distance,'_p1-2.html'))
+        set.seed(seed)
         htmlwidgets::saveWidget(deposit$plot[[i]]$p13_html, paste0(i,'_',min_relative,'_',min_ratio,'_',distance,'_p1-3.html'))
+        set.seed(seed)
         htmlwidgets::saveWidget(deposit$plot[[i]]$p23_html, paste0(i,'_',min_relative,'_',min_ratio,'_',distance,'_p2-3.html'))
       }
     }
