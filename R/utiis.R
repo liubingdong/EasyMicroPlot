@@ -433,7 +433,7 @@ beta_plot=function(dir,group_level=c('default'),seed=123,min_relative = 0,min_ra
       # 当adjust被关闭后，检查空行样本并将其删除
       if (adjust==F){
         id_0=apply(data,1,mean)
-        try(samples_elimated=rownames(data)[id_0==0],silent=T)
+        try(samples_elimated<-rownames(data)[id_0==0],silent=T)
         data=data[id_0!=0,]
         if (0%in%id_0){
           warning(paste0('In ',i,' level, ',samples_elimated,' was elimated, due to empty data!') )
