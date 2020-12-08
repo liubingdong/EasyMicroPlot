@@ -7,6 +7,8 @@
 #' @import patchwork
 #' @import fs
 #' @import stringr
+#' @import ggiraph
+#' @import plotly
 
 options(dplyr.summarise.inform = FALSE)
 
@@ -140,8 +142,8 @@ pca_boxplot=function(data,design,seed=123,group_level=c('default'),method=c('Tuk
   p12<-ggplot(plotdata, aes(PC1, PC2)) +
     geom_point_interactive(aes(fill=Group,tooltip = paste0(sample,'\n','x: ',round(PC1,2),'\n','y: ',round(PC2,2))),size=8,pch = 21)+
     scale_fill_manual(values=palette,name = "Group")+
-    xlab(paste("PC1 ( ",pc1,"%"," )",sep="")) +
-    ylab(paste("PC2 ( ",pc2,"%"," )",sep=""))+
+    xlab(paste("PCoA1 ( ",pc1,"%"," )",sep="")) +
+    ylab(paste("PCoA2 ( ",pc2,"%"," )",sep=""))+
     xlim(ggplot_build(p1)$layout$panel_scales_y[[1]]$range$range) +
     ylim(ggplot_build(p2)$layout$panel_scales_y[[1]]$range$range) +
     theme(text=element_text(size=30))+
@@ -166,8 +168,8 @@ pca_boxplot=function(data,design,seed=123,group_level=c('default'),method=c('Tuk
   p13<-ggplot(plotdata, aes(PC1, PC3)) +
     geom_point_interactive(aes(fill=Group,tooltip = paste0(sample,'\n','x: ',round(PC1,2),'\n','y: ',round(PC3,2))),size=8,pch = 21)+
     scale_fill_manual(values=palette,name = "Group")+
-    xlab(paste("PC1 ( ",pc1,"%"," )",sep="")) +
-    ylab(paste("PC3 ( ",pc3,"%"," )",sep=""))+
+    xlab(paste("PCoA1 ( ",pc1,"%"," )",sep="")) +
+    ylab(paste("PCoA3 ( ",pc3,"%"," )",sep=""))+
     xlim(ggplot_build(p1)$layout$panel_scales_y[[1]]$range$range) +
     ylim(ggplot_build(p3)$layout$panel_scales_y[[1]]$range$range) +
     theme(text=element_text(size=30))+
@@ -191,8 +193,8 @@ pca_boxplot=function(data,design,seed=123,group_level=c('default'),method=c('Tuk
   p23<-ggplot(plotdata, aes(PC2, PC3)) +
     geom_point_interactive(aes(fill=Group,tooltip = paste0(sample,'\n','x: ',round(PC2,2),'\n','y: ',round(PC3,2))),size=8,pch = 21)+
     scale_fill_manual(values=palette,name = "Group")+
-    xlab(paste("PC2 ( ",pc2,"%"," )",sep="")) +
-    ylab(paste("PC3 ( ",pc3,"%"," )",sep=""))+
+    xlab(paste("PCoA2 ( ",pc2,"%"," )",sep="")) +
+    ylab(paste("PCoA3 ( ",pc3,"%"," )",sep=""))+
     xlim(ggplot_build(p2)$layout$panel_scales_y[[1]]$range$range) +
     ylim(ggplot_build(p3)$layout$panel_scales_y[[1]]$range$range) +
     theme(text=element_text(size=30))+
@@ -259,7 +261,6 @@ pca_boxplot=function(data,design,seed=123,group_level=c('default'),method=c('Tuk
   deposit$p23_html=p23_html
   return(deposit)
 }
-
 
 
 modify_data=function(data,design, min_relative,min_odd) {
@@ -411,17 +412,25 @@ data_filter=function(dir,min_relative,min_ratio,design,adjust=F,output=F,pattern
 }
 
 
-beta_plot=function(dir,seed=123,group_level=c('default'),min_relative = 0,min_ratio = 0,design ,adjust = F,pattern = '',output = F,
+beta_plot=function(dir,group_level=c('default'),min_relative = 0,min_ratio = 0,design ,adjust = F,pattern = '',output = F,html_out = F,
                    method='Tukey',distance = 'bray',palette=c("#E64B35FF","#4DBBD5FF","#00A087FF","#3C5488FF","#F39B7FFF","#8491B4FF",
                                                               "#B2182B","#E69F00","#56B4E9","#009E73","#F0E442","#0072B2","#D55E00","#CC79A7","#CC6666") ){
   deposit=list()
   deposit$result=data_filter(dir = dir,min_relative = min_relative,min_ratio = min_ratio,design = design,adjust = adjust,pattern = pattern,output = output)
   for (i in names(deposit$result$filter_data)){
     data=data.frame()
-    try(data<-subset(deposit$result$filter_data[[i]],select=-c(SampleID,Group)),silent=T)
+    try(data<-subset(deposit$result$filter_data[[i]],select=-c(Group)),silent=T)
     if (ncol(data) != 0) {
-      deposit$plot[[i]]<-pca_boxplot(data =data,seed=seed,design = design,group_level=group_level)
+      rownames(data)<-data[,1]
+      data<-data[,-1]
+      deposit$plot[[i]]<-pca_boxplot(data =data ,design = design,group_level=group_level)
+      if (html_out==T) {
+        htmlwidgets::saveWidget(deposit$plot[[i]]$p12_html, paste0(i,'_',min_relative,'_',min_ratio,'_',distance,'_p1-2.html'))
+        htmlwidgets::saveWidget(deposit$plot[[i]]$p13_html, paste0(i,'_',min_relative,'_',min_ratio,'_',distance,'_p1-3.html'))
+        htmlwidgets::saveWidget(deposit$plot[[i]]$p23_html, paste0(i,'_',min_relative,'_',min_ratio,'_',distance,'_p2-3.html'))
+      }
     }
   }
   return(deposit)
 }
+
