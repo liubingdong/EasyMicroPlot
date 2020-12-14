@@ -273,9 +273,9 @@ pca_boxplot=function(data,design,seed=123,group_level=c('default'),method=c('Tuk
   deposit$pic$p12=p12
   deposit$pic$p23=p23
   deposit$pic$p13=p13
-  deposit$test$PC1_test=summary(tuk1)
-  deposit$test$PC2_test=summary(tuk2)
-  deposit$test$PC3_test=summary(tuk3)
+  deposit$test$PC1_test=fit1_test$comparison
+  deposit$test$PC2_test=fit2_test$comparison
+  deposit$test$PC3_test=fit3_test$comparison
   deposit$html$p12_html=p12_html
   deposit$html$p13_html=p13_html
   deposit$html$p23_html=p23_html
