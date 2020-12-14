@@ -469,8 +469,16 @@ beta_plot=function(dir,group_level=c('default'),seed=123,min_relative = 0,min_ra
 
 multi_test=function(fit,method){
   if (method=='HSD') {
-    res<-HSD.test(fit,'Group')
-    pvalue<-HSD.test(fit,'Group',group = F)$comparison
+    group_num=as.numeric(table(mapping$Group))
+    group_even_check=all(group_num==group_num[1])
+    if (group_even_check==T) {
+      res<-HSD.test(fit,'Group',unbalanced=F)
+      pvalue<-HSD.test(fit,'Group',group = F,unbalanced=F)$comparison
+    }else{
+      res<-HSD.test(fit,'Group',unbalanced=T)
+      pvalue<-HSD.test(fit,'Group',group = F,unbalanced=T)$comparison
+      warning('Detected unequal replication, HSD test activated unbalanced mode.')
+    }
   }else if(method=='LSD'){
     res<-LSD.test(fit,'Group')
     pvalue<-LSD.test(fit,'Group',group = F)$comparison
@@ -493,4 +501,6 @@ multi_test=function(fit,method){
   deposit$letter=data.frame(groups=res$groups$groups,Gid=rownames(res$groups))
   return(deposit)
 }
+
+
 
