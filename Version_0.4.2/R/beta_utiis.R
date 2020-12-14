@@ -435,7 +435,7 @@ data_filter=function(dir,min_relative,min_ratio,design,adjust=F,output=F,pattern
 
 
 beta_plot=function(dir,group_level=c('default'),seed=123,min_relative = 0,min_ratio = 0,design ,adjust = T,pattern = '',output = F,html_out = F,
-                   method='Tukey',width=15,height=15,distance = 'bray',palette=c("#E64B35FF","#4DBBD5FF","#00A087FF","#3C5488FF","#F39B7FFF","#8491B4FF",
+                   method='HSD',width=15,height=15,distance = 'bray',palette=c("#E64B35FF","#4DBBD5FF","#00A087FF","#3C5488FF","#F39B7FFF","#8491B4FF",
                                                               "#B2182B","#E69F00","#56B4E9","#009E73","#F0E442","#0072B2","#D55E00","#CC79A7","#CC6666") ){
   deposit=list()
   deposit$result=data_filter(dir = dir,min_relative = min_relative,min_ratio = min_ratio,design = design,adjust = adjust,pattern = pattern,output = output)
