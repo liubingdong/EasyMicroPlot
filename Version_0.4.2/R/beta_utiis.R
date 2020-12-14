@@ -13,7 +13,7 @@
 
 options(dplyr.summarise.inform = FALSE)
 
-pca_boxplot=function(data,design,seed=123,group_level=c('default'),method=c('Tukey'),width=15,height=15,distance=c('bray'),palette=c("#E64B35FF","#4DBBD5FF","#00A087FF","#3C5488FF","#F39B7FFF","#8491B4FF",
+pca_boxplot=function(data,design,seed=123,group_level=c('default'),method=c('HSD'),width=15,height=15,distance=c('bray'),palette=c("#E64B35FF","#4DBBD5FF","#00A087FF","#3C5488FF","#F39B7FFF","#8491B4FF",
                                                                                                          "#B2182B","#E69F00","#56B4E9","#009E73","#F0E442","#0072B2","#D55E00","#CC79A7","#CC6666")){
   
   data=data
@@ -458,9 +458,9 @@ beta_plot=function(dir,group_level=c('default'),seed=123,min_relative = 0,min_ra
       }
       deposit$plot[[i]]<-pca_boxplot(data =data ,design = design,group_level=group_level,seed=seed,method=method,distance=distance,palette=palette,width=width,height=height)
       if (html_out==T) {
-        htmlwidgets::saveWidget(deposit$plot[[i]]$html$p12_html, paste0(i,'_',min_relative,'_',min_ratio,'_',distance,'_p1-2.html'))
-        htmlwidgets::saveWidget(deposit$plot[[i]]$html$p13_html, paste0(i,'_',min_relative,'_',min_ratio,'_',distance,'_p1-3.html'))
-        htmlwidgets::saveWidget(deposit$plot[[i]]$html$p23_html, paste0(i,'_',min_relative,'_',min_ratio,'_',distance,'_p2-3.html'))
+        htmlwidgets::saveWidget(deposit$plot[[i]]$html$p12_html, paste0(i,'_',min_relative,'_',min_ratio,'_',distance,'_',method,'_p1-2.html'))
+        htmlwidgets::saveWidget(deposit$plot[[i]]$html$p13_html, paste0(i,'_',min_relative,'_',min_ratio,'_',distance,'_',method,'_p1-3.html'))
+        htmlwidgets::saveWidget(deposit$plot[[i]]$html$p23_html, paste0(i,'_',min_relative,'_',min_ratio,'_',distance,'_',method,'_p2-3.html'))
       }
     }
   }

@@ -23,7 +23,7 @@ Filtering data and making beta diversity plot.
   \item{html_out}{Output interactive html in three axis ay different levels. [Default:False]}
   \item{seed}{Set the random seed to generate reproducible result. [Default:123]}
   \item{width,height}{Set the width and height of interactive html. [Default:15]}
-  \item{method}{Set method in multiple comparison: Tukey(Default),Dunnett,Sequen,AVE,Changepoint,Williams,Marcus,McDermott,UmbrellaWilliams,GrandMean.}
+  \item{method}{Set method in multiple comparison: HSD(Default),LSD,duncan,scheffe,REGW,SNK.}
   \item{distance}{bray(Default),manhattan, euclidean, canberra, clark, kulczynski, jaccard, gower, altGower, morisita, horn, mountford, raup, binomial, chao, cao or mahalanobis.}
 }
 \examples{

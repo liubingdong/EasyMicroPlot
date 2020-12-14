@@ -12,7 +12,7 @@ Makeing beta diversity plot.
   \item{design}{Mapping File}
   \item{group_level}{Set the group order in Mapping File. [Not necessary]}
   \item{seed}{Set the random seed to generate reproducible result. [Default:123]}
-  \item{method}{Set method in multiple comparison: Tukey(Default),Dunnett,Sequen,AVE,Changepoint,Williams,Marcus,McDermott,UmbrellaWilliams,GrandMean.}
+  \item{method}{Set method in multiple comparison: HSD(Default),LSD,duncan,scheffe,REGW,SNK.}
   \item{distance}{bray(Default),manhattan, euclidean, canberra, clark, kulczynski, jaccard, gower, altGower, morisita, horn, mountford, raup, binomial, chao, cao or mahalanobis.}
   \item{width}{Set the width of interactive html. [Default:15]}
   \item{height}{Set the height of interactive html. [Default:15]}
