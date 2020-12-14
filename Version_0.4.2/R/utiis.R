@@ -9,6 +9,7 @@
 #' @import stringr
 #' @import ggiraph
 #' @import plotly
+#' @import agricolae
 
 options(dplyr.summarise.inform = FALSE)
 
