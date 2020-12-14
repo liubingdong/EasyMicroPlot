@@ -68,9 +68,9 @@ pca_boxplot=function(data,design,seed=123,group_level=c('default'),method=c('HSD
   fit2 <- aov(PC2~Group,data = plotdata)
   fit3 <- aov(PC3~Group,data = plotdata)
 
-  fit1_test=multi_test(fit1,method)
-  fit2_test=multi_test(fit2,method)
-  fit3_test=multi_test(fit3,method)
+  fit1_test=multi_test(fit1,method,mapping)
+  fit2_test=multi_test(fit2,method,mapping)
+  fit3_test=multi_test(fit3,method,mapping)
 
 
   a=data.frame(groups=fit1_test$model$groups$groups,Gid=rownames(fit1_test$model$groups))
@@ -467,7 +467,7 @@ beta_plot=function(dir,group_level=c('default'),seed=123,min_relative = 0,min_ra
   return(deposit)
 }
 
-multi_test=function(fit,method){
+multi_test=function(fit,method,mapping){
   if (method=='HSD') {
     group_num=as.numeric(table(mapping$Group))
     group_even_check=all(group_num==group_num[1])
