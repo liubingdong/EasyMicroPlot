@@ -13,7 +13,7 @@ EasyMicroPlot aims to be an **easy-to-use Microbiome  analysis pipeline** that a
 * stringr (>= 1.4.0)
 * plotly (>= 4.9.2.1)
 * ggiraph (>= 0.7.0)
-* agricolae（>= 
+* agricolae（>= 1.3-3)
 
 ## INSTALLATION
 
