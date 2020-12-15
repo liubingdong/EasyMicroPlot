@@ -18,7 +18,7 @@ EasyMicroPlot aims to be an **easy-to-use Microbiome  analysis pipeline** that a
 
 	if(! require("devtools")) install.packages("devtools")
 	library(devtools)
-	install_github("liubingdong/EasyMicroPlot",subdir='Version_0.4.1',
+	install_github("liubingdong/EasyMicroPlot",subdir='Version_0.4.2',
 					upgrade = 'never')
 
 
@@ -69,7 +69,7 @@ dev.off()
 * Version_0.4.2
 
 
-  1. **Rebuilde multible comparison** :
+  1 . **Rebuilde multible comparison** :
   	
   	```
 	HSD: Multiple comparisons, Tukey
