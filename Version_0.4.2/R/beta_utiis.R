@@ -418,7 +418,7 @@ data_filter=function(dir,min_relative,min_ratio,design,adjust=F,output=F,pattern
         if (output==T){
           dir.create(tax_total[sep_num[i]])
           write.csv(sub_data, file =paste0(tax_level,"_",min_ratio*100,"%.csv"),row.names = F)
-          write.csv(filter_result$var_names, file =paste0(tax_level,"_",min_ratio*100,"%_info.csv"))
+          write.csv(tax_names, file =paste0(tax_level,"_",min_ratio*100,"%_info.csv"))
           file_move(paste0(tax_level,"_",min_ratio*100,"%.csv"),tax_level)
           file_move(paste0(tax_level,"_",min_ratio*100,"%_info.csv"),tax_level)
         }
