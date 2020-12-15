@@ -51,7 +51,7 @@ data<-data[,-1]
 data<-subset(data,select=-c(Group))
 ## plot all
 beta=pca_boxplot(data =data ,design = 'mapping.txt',seed=12,
-					method='Tukey',distance='bray')
+					method='HSD',distance='bray')
 
 ## gereate html
 beta=pca_boxplot(data =data ,design = 'mapping.txt',seed=12,
@@ -63,3 +63,39 @@ pdf('sp_1_2.pdf',height = 15,width = 15)
 beta_result$plot$species$p12
 dev.off()
 ```
+
+## UPDATE
+
+* Version_0.4.2
+
+
+  1. **Rebuilde multible comparison** :
+  	
+  	```
+	HSD: Multiple comparisons, Tukey
+	
+	LSD: Least significant difference
+	
+	duncan: Duncan's new multiple range test
+	
+	scheffe: Multiple comparisons, scheffe
+	
+	REGW: Ryan, Einot and Gabriel and Welsch multiple range test
+	
+	SNK: Student-Newman-Keuls
+	```
+  2 .  **Add more waring information and debug some tepo**
+  
+  ```
+  When unequal replication in Tukey comparisons , now it could show correct warning.
+  
+  Add method infomation to the name of html files.
+  
+  ```
+
+
+
+
+
+
+
