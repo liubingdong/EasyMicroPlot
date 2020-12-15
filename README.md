@@ -55,7 +55,7 @@ beta=pca_boxplot(data =data ,design = 'mapping.txt',seed=12,
 
 ## gereate html
 beta=pca_boxplot(data =data ,design = 'mapping.txt',seed=12,
-                    method='Tukey',distance='bray')
+                    method='HSD',distance='bray')
 
 ## generate pdf
 ## better set seed as the fomer to make pdf as same as html output
