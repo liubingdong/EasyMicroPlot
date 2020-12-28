@@ -87,7 +87,6 @@ dev.off()
 	```
  
 
-
  
  2 . **Add alpha caculation function**  
  
