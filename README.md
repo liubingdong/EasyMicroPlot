@@ -72,9 +72,9 @@ dev.off()
 
   1 . **Add randomForest togther with N-fold cross validation** 
 	 
-	 ```
-	 generate filter data
-	 re=data_filter(dir = '.',min_relative = 0.001,min_ratio = 0.8,
+	```
+	generate filter data
+	re=data_filter(dir = '.',min_relative = 0.001,min_ratio = 0.8,
 	                 design = 'mapping.txt',adjust = F,pattern = 'L7')              
 	modify data               
 	rf=re$filter_data$species
@@ -91,17 +91,17 @@ dev.off()
  
  2 . **Add alpha caculation function** 
  
-	   	```
-		re=data_filter(dir = '.',min_relative = 0.001,min_ratio = 0.3,
-		                      design = 'mapping.txt',adjust = F,pattern = 'L7')
-		data=re$filter_data$species
-		data=subset(data,select = -c(Group))
-		rownames(data)<-data[,1]
-		data<-data[,-1]
-		data=round(data*1000000,0))
-		alpha_result=alpha_caculate(data)
-		alpha_pic=alpha_plot(data =alpha_result,design = 'mapping.txt' )
-		 ```
+	```
+	re=data_filter(dir = '.',min_relative = 0.001,min_ratio = 0.3,
+			      design = 'mapping.txt',adjust = F,pattern = 'L7')
+	data=re$filter_data$species
+	data=subset(data,select = -c(Group))
+	rownames(data)<-data[,1]
+	data<-data[,-1]
+	data=round(data*1000000,0))
+	alpha_result=alpha_caculate(data)
+	alpha_pic=alpha_plot(data =alpha_result,design = 'mapping.txt' )
+	 ```
 
 
 
