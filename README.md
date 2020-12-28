@@ -70,7 +70,7 @@ dev.off()
 ## UPDATE
 * Version_0.4.3
 
- 1 . **Add randomForest togther with N-fold cross validation** 
+  1 . **Add randomForest togther with N-fold cross validation** 
  
  ```
  ## generate filter data
@@ -86,7 +86,7 @@ plot=RFCV_plot(data = result,y_break = 1,
                         cutoff_colour = 'red',palette = 'black')
 ```
  
- 2 .**Add randomForest togther with N-fold cross validation**
+  2 .**Add randomForest togther with N-fold cross validation**
  
  ```
  re=data_filter(dir = '.',min_relative = 0.001,min_ratio = 0.3,
