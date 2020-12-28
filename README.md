@@ -14,6 +14,9 @@ EasyMicroPlot aims to be an **easy-to-use Microbiome  analysis pipeline** that a
 * plotly (>= 4.9.2.1)
 * ggiraph (>= 0.7.0)
 * agricolae（>= 1.3-3)
+* randomForest (>= 4.6-14)
+* doParallel (>= 1.0.15)
+* parallel (>= 3.5.1)
 
 ## INSTALLATION
 
@@ -53,7 +56,6 @@ data<-subset(data,select=-c(Group))
 ## plot all
 beta=pca_boxplot(data =data ,design = 'mapping.txt',seed=12,
 					method='HSD',distance='bray')
-
 ## gereate html
 beta=pca_boxplot(data =data ,design = 'mapping.txt',seed=12,
                     method='HSD',distance='bray')
@@ -66,6 +68,38 @@ dev.off()
 ```
 
 ## UPDATE
+* Version_0.4.3
+
+ 1 . **Add randomForest togther with N-fold cross validation** 
+ 
+ ```
+ ## generate filter data
+ re=data_filter(dir = '.',min_relative = 0.001,min_ratio = 0.8,
+                 design = 'mapping.txt',adjust = F,pattern = 'L7')              
+## modify data               
+rf=re$filter_data$species
+rf=subset(rf,select = -c(SampleID))
+## RFCV
+result<-RFCVSEED(rep = 6,RF = rf,seed_start = 123,ntree = 10,core = 1,
+                              kfold = 5,RF_importance = 1,step = 1)
+plot=RFCV_plot(data = result,y_break = 1,
+                        cutoff_colour = 'red',palette = 'black')
+```
+ 
+ 2 .**Add randomForest togther with N-fold cross validation**
+ 
+ ```
+ re=data_filter(dir = '.',min_relative = 0.001,min_ratio = 0.3,
+                      design = 'mapping.txt',adjust = F,pattern = 'L7')
+data=re$filter_data$species
+data=subset(data,select = -c(Group))
+rownames(data)<-data[,1]
+data<-data[,-1]
+data=round(data*1000000,0)
+alpha_result=alpha_(data)
+```
+
+
 
 * Version_0.4.2
 
