@@ -22,7 +22,7 @@ EasyMicroPlot aims to be an **easy-to-use Microbiome  analysis pipeline** that a
 
 	if(! require("devtools")) install.packages("devtools")
 	library(devtools)
-	install_github("liubingdong/EasyMicroPlot",subdir='Version_0.4.2',
+	install_github("liubingdong/EasyMicroPlot",subdir='Version_0.4.3',
 					upgrade = 'never')
 
 
