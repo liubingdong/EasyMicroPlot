@@ -32,6 +32,10 @@ EasyMicroPlot aims to be an **easy-to-use Microbiome  analysis pipeline** that a
 * data_filter
 * pca_boxplot
 * beta_plot
+* alpha_caculate
+* alpha_plot
+* RFCVSEED
+* RFCV_plot
 
 
 ## USAGE
