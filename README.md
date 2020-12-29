@@ -88,18 +88,18 @@ dev.off()
  
 
  
- 2 . **Add alpha caculation function**  
-
-    re=data_filter(dir = '.',min_relative = 0.001,min_ratio = 0.3,
-			        design = 'mapping.txt',adjust = F,pattern = 'L7')
-    data=re$filter_data$species
-    data=subset(data,select = -c(Group))
-    rownames(data)<-data[,1]
-    data<-data[,-1]
-    data=round(data*1000000,0))
-    alpha_result=alpha_caculate(data)
-    alpha_pic=alpha_plot(data =alpha_result,design = 'mapping.txt' )
-
+   2 . **Add alpha caculation function**  
+	```
+	re=data_filter(dir = '.',min_relative = 0.001,min_ratio = 0.3,
+				design = 'mapping.txt',adjust = F,pattern = 'L7')
+	data=re$filter_data$species
+	data=subset(data,select = -c(Group))
+	rownames(data)<-data[,1]
+	data<-data[,-1]
+	data=round(data*1000000,0))
+	alpha_result=alpha_caculate(data)
+	alpha_pic=alpha_plot(data =alpha_result,design = 'mapping.txt' )
+	```
 
 
 
