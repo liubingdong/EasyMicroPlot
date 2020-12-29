@@ -84,7 +84,7 @@ dev.off()
 	rf=re$filter_data$species
 	rf=subset(rf,select = -c(SampleID))
 	##RFCV
-	result<-RFCVSEED(rep = 6,RF = rf,seed_start = 123,ntree = 10,core = 1,
+	result<-RFCVSEED(rep = 10,RF = rf,seed_start = 123,ntree = 1000,core = 1,
 	                              kfold = 5,RF_importance = 1,step = 1)
 	plot=RFCV_plot(data = result,y_break = 1,
 	                        cutoff_colour = 'red',palette = 'black')	
