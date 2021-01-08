@@ -19,7 +19,8 @@ RFCVSEED= function(RF,seed_start=123,ntree=1000,core=1,kfold=5,rep=10,RF_importa
   result=list()
   RF_var=list()
   RF_seed_plot=list()
-  
+  # R升级4.0后需要指明因子
+  RF$Group=as.factor(RF$Group)
   RFCV= function(i){
     # 删除id为i的行，创建训练集
     # 选id为i的行，创建训练集
