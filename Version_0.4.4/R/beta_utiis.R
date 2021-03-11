@@ -317,7 +317,7 @@ modify_data=function(data,design, min_relative,min_odd) {
     # 循环读取各组数据
     otu=otu_group_split[[j]]
     # 删除前面合并的不必要的数据
-    try(otu<-subset(otu,select = -c(barcode,primer,Group,Description),silent=T)
+    try(otu<-subset(otu,select = -c(barcode,primer,Group,Description)),silent=T)
     # 更改数据名称为V，便于下游制图
     #colnames(otu)=c("SampleID",paste("V", 1:c(ncol(otu)-1), sep = ""))
     
