@@ -364,7 +364,7 @@ data_filter=function(dir,min_relative,min_ratio,design,adjust=F,output=F,pattern
   sep_num=c()
   tax_total=c('phylum','class','order','family','genus','species')
   mapping=design
-  try(mapping<-read.table(paste0(design),header = T,check.names = F,sep = "\t"),silent = T
+  try(mapping<-read.table(paste0(design),header = T,check.names = F,sep = "\t"),silent = T)
   deposit=list()
   for (i in c(1:file_num)){
     file_data=read.table(file_name[i],sep='\t',header=T,check.names = F,row.names= 1)
