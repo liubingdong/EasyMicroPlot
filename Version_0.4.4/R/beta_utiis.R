@@ -318,6 +318,7 @@ modify_data=function(data,design, min_relative,min_odd) {
     otu=otu_group_split[[j]]
     # 删除前面合并的不必要的数据
     try(otu<-subset(otu,select = -c(barcode,primer,Group,Description)),silent=T)
+    try(otu<-subset(otu,select = -c(Group)),silent=T)
     # 更改数据名称为V，便于下游制图
     #colnames(otu)=c("SampleID",paste("V", 1:c(ncol(otu)-1), sep = ""))
     
@@ -359,7 +360,7 @@ modify_data=function(data,design, min_relative,min_odd) {
 
 data_filter=function(dir,min_relative,min_ratio,design,adjust=F,output=F,pattern=''){
   file_name<-list.files(path ='.' ,pattern = pattern)
-  file_name=file_name[which(file_name!=design)]
+  #file_name=file_name[which(file_name!=design)]
   file_num=length(file_name)
   sep_num=c()
   tax_total=c('phylum','class','order','family','genus','species')
