@@ -8,8 +8,6 @@
 
 RFCVSEED= function(RF,seed_start=123,ntree=1000,core=1,kfold=5,rep=10,RF_importance=1,step=1,each_ouput=F){
   
-  
-  #定义重要性排除标准
   value=c("MeanDecreaseAccuracy","MeanDecreaseGini")
   value=value[RF_importance]
   
