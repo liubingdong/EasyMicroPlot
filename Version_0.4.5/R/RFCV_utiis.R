@@ -1,6 +1,4 @@
 #' @import ggplot2
-#' @import vegan
-#' @import ape
 #' @import randomForest
 #' @import plyr
 #' @import dplyr
