@@ -1,6 +1,6 @@
 #' @import ggplot2
 #' @import randomForest
-#' @import plyr
+#' @importFrom plyr create_progress_bar
 #' @import dplyr
 
 

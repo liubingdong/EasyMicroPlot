@@ -1,5 +1,5 @@
 #' @import ggplot2
-#' @import vegan
+#' @importFrom vegan diversity
 #' @import ape
 #' @import grid
 #' @import dplyr
