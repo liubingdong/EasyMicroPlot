@@ -1,24 +1,23 @@
 #' @import ggplot2
-#' @importFrom vegan diversity
-#' @import ape
 #' @import grid
 #' @import dplyr
 #' @import multcomp
 #' @import patchwork
 #' @import fs
 #' @import stringr
-#' @import ggiraph
-#' @import plotly
-#' @import agricolae
-
+#' @importFrom ggiraph girafe
+#' @importFrom htmlwidgets saveWidget
+#' @importFrom ggpubr stat_compare_means
+#' @importFrom vegan diversity
+#' @importFrom vegan estimateR
 options(dplyr.summarise.inform = FALSE)
 
 alpha_caculate <- function(x, tree = NULL, base = exp(1)) {
-  est <- estimateR(x)
+  est <- vegan::estimateR(x)
   Richness <- est[1, ]
   #Chao1 <- est[2, ]
-  Shannon <- diversity(x, index = 'shannon', base = base)
-  Simpson <- diversity(x, index = 'simpson')    #Gini-Simpson 指数
+  Shannon <- vegan::diversity(x, index = 'shannon', base = base)
+  Simpson <- vegan::diversity(x, index = 'simpson')    #Gini-Simpson 指数
   result <- data.frame(Richness, Shannon, Simpson)
   return(result)
 }

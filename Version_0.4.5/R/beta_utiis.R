@@ -1,15 +1,22 @@
 #' @import ggplot2
-#' @import vegan
-#' @import ape
 #' @import grid
 #' @import dplyr
 #' @import multcomp
 #' @import patchwork
 #' @import fs
 #' @import stringr
-#' @import ggiraph
-#' @import plotly
-#' @import agricolae
+#' @importFrom ape pcoa
+#' @importFrom vegan vegdist
+#' @importFrom vegan adonis
+#' @importFrom ggiraph girafe
+#' @importFrom htmlwidgets saveWidget
+#' @importFrom agricolae HSD.test
+#' @importFrom agricolae LSD.test
+#' @importFrom agricolae duncan.test
+#' @importFrom agricolae scheffe.test
+#' @importFrom agricolae REGW.test
+#' @importFrom agricolae SNK.test
+
 
 options(dplyr.summarise.inform = FALSE)
 
@@ -45,8 +52,8 @@ pca_boxplot=function(data,design,seed=123,group_level=c('default'),method=c('HSD
   pich=c(pich1,15:(15+res2))
   ###########bray
   ###PCoA分析--轴12
-  data <- vegdist(data,method=distance)
-  pcoa<- pcoa(data, correction = "none", rn = NULL)
+  data <- vegan::vegdist(data,method=distance)
+  pcoa<- ape::pcoa(data, correction = "none", rn = NULL)
   PC1 = pcoa$vectors[,1]
   PC2 = pcoa$vectors[,2]
   PC3 = pcoa$vectors[,3]
@@ -237,7 +244,7 @@ pca_boxplot=function(data,design,seed=123,group_level=c('default'),method=c('HSD
   
   #PERMANOVA分析
   set.seed(seed)
-  otu.adonis=adonis(data~V2,data = groups,distance = distance)
+  otu.adonis <- vegan::adonis(data~V2,data = groups,distance = distance)
   p5 <- ggplot() +
     geom_text(aes(x = -0.5,y = 0.6,
                   label = paste(distance,
@@ -474,28 +481,28 @@ multi_test=function(fit,method,mapping){
     group_num=as.numeric(table(mapping$Group))
     group_even_check=all(group_num==group_num[1])
     if (group_even_check==T) {
-      res<-HSD.test(fit,'Group',unbalanced=F)
-      pvalue<-HSD.test(fit,'Group',group = F,unbalanced=F)$comparison
+      res<- agricolae::HSD.test(fit,'Group',unbalanced=F)
+      pvalue<- agricolae::HSD.test(fit,'Group',group = F,unbalanced=F)$comparison
     }else{
-      res<-HSD.test(fit,'Group',unbalanced=T)
-      pvalue<-HSD.test(fit,'Group',group = F,unbalanced=T)$comparison
+      res<- agricolae::HSD.test(fit,'Group',unbalanced=T)
+      pvalue<- agricolae::HSD.test(fit,'Group',group = F,unbalanced=T)$comparison
       warning('Detected unequal replication, HSD test activated unbalanced mode.')
     }
   }else if(method=='LSD'){
-    res<-LSD.test(fit,'Group')
-    pvalue<-LSD.test(fit,'Group',group = F)$comparison
+    res<- agricolae::LSD.test(fit,'Group')
+    pvalue<- agricolae::LSD.test(fit,'Group',group = F)$comparison
   }else if(method=='duncan'){
-    res<-duncan.test(fit,'Group')
-    pvalue<-duncan.test(fit,'Group',group = F)$comparison
+    res<- agricolae::duncan.test(fit,'Group')
+    pvalue<- agricolae::duncan.test(fit,'Group',group = F)$comparison
   }else if(method=='scheffe'){
-    res<-scheffe.test(fit,'Group')
-    pvalue<-scheffe.test(fit,'Group',group = F)$comparison
+    res<- agricolae::scheffe.test(fit,'Group')
+    pvalue<- agricolae::scheffe.test(fit,'Group',group = F)$comparison
   }else if(method=='REGW'){
-    res<-REGW.test(fit,'Group')
-    pvalue<-REGW.test(fit,'Group',group = F)$comparison
+    res<- agricolae::REGW.test(fit,'Group')
+    pvalue<- agricolae::REGW.test(fit,'Group',group = F)$comparison
   }else if(method=='SNK'){
-    res<-SNK.test(fit,'Group')
-    pvalue<-SNK.test(fit,'Group',group = F)$comparison
+    res<- agricolae::SNK.test(fit,'Group')
+    pvalue<- agricolae::SNK.test(fit,'Group',group = F)$comparison
   }else{print("no method matched in multiple comparisons!")}
   deposit=list()
   deposit$model=res

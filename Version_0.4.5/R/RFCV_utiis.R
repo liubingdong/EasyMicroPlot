@@ -1,9 +1,8 @@
 #' @import ggplot2
-#' @import randomForest
 #' @importFrom plyr create_progress_bar
 #' @import dplyr
-
-
+#' @importFrom randomForest randomForest
+#' @importFrom randomForest varImpPlot
 
 
 RFCVSEED <- function(RF,seed_start=123,ntree=1000,core=1,kfold=5,rep=10,RF_importance=1,step=1,each_ouput=F){
